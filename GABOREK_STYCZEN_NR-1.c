@@ -34,6 +34,36 @@
 //UWAGA - w przypadku listy jednoelementowej, element wskazuje sam na siebie jako na następnik - jest
 //jednocześnie korzeniem (root) iogonem (tail) listy.
 
+typedef struct Student Student;
+
+
+typedef enum {TRUE = 1, FALSE = 0} bool;
+
+
+bool containsDigits(char *str)
+{
+    
+    int j=0;
+    int w4=0;
+    int w5=0;
+    bool w6;
+    bool dig;
+    while (str[j] != '\0')
+    {
+        if (isdigit(str[j]))
+            w4=w4+1;
+        else
+            w5=w5+1;
+        j++;
+    }
+    if (w4==0)
+        w6=1;
+    else
+        w6=0;
+    return w6;
+}
+
+
 
 
 int main(void)
@@ -60,6 +90,12 @@ int main(void)
             case 1:
                 // rozpoczynam program nr 1.1 (styczen)
                 printf ("Uruchomiles wlasnie kolejny program, zadanie nr 1.%i\n", wybor);
+                
+                Student * student = (Student*) malloc (sizeof(Student)); // zaalokuj pamięć na X bajtów, gdzie X to wyliczony przez kompilator rozmiar struktury Student
+                student->Age = 25;
+                student->Semester = 6;
+                free(student); // zwolnij pamięć
+                
                 break;
             case 2:
                 // rozpoczynam program nr 1.2 (styczen)
