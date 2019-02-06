@@ -39,7 +39,8 @@ typedef struct Student Student;
 
 typedef enum {TRUE = 1, FALSE = 0} bool;
 
-
+bool AreEqueal(Student* s1, Student* s2);
+{
 bool containsDigits(char *str)
 {
     
@@ -62,6 +63,12 @@ bool containsDigits(char *str)
         w6=0;
     return w6;
 }
+
+Student* Create(int age, int height, int semester)
+
+
+void PrintStudent(Student *s)
+
 
 
 
