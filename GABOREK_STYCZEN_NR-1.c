@@ -34,45 +34,108 @@
 //UWAGA - w przypadku listy jednoelementowej, element wskazuje sam na siebie jako na następnik - jest
 //jednocześnie korzeniem (root) iogonem (tail) listy.
 
-typedef struct Student Student;
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+
+/*************************************************************************************************
+tworze definicje typu enum dla zmiennej prawda falsz
+ *************************************************************************************************/
 
 typedef enum {TRUE = 1, FALSE = 0} bool;
 
-bool AreEqueal(Student* s1, Student* s2);
+/*************************************************************************************************
+tworze strukture studenta o parametrach podanych w zadaniu
+ *************************************************************************************************/
+
+struct student
 {
-bool containsDigits(char *str)
+    int age;
+    int height;
+    int semester;
+};
+
+/*************************************************************************************************
+ponizej funkcja blokujaca pamiec na okreslona ilosc struktor w tablicy
+ *************************************************************************************************/
+
+void createStudenci(struct student** studenci, int ilosc)
 {
-    
-    int j=0;
-    int w4=0;
-    int w5=0;
-    bool w6;
-    bool dig;
-    while (str[j] != '\0')
-    {
-        if (isdigit(str[j]))
-            w4=w4+1;
-        else
-            w5=w5+1;
-        j++;
-    }
-    if (w4==0)
-        w6=1;
-    else
-        w6=0;
-    return w6;
+    *studenci = (struct student *) malloc(sizeof(struct student)*ilosc);
 }
 
-Student* Create(int age, int height, int semester)
+/*************************************************************************************************
+ponizej funkcja tworzaca tablice struktor
+ *************************************************************************************************/
+
+void create(struct student* const studenci, int ilosc)
+{
+    int wiek;
+    int wzrost;
+    int semestr;
+    
+    for(int i=0; i< ilosc; i++)
+    {
+        printf ("Podaj wiek studenta nr %i\n", i+1);
+        scanf ("%i", &wiek);
+        studenci[i].age = wiek;
+        
+        printf ("Podaj wzrost studenta nr %i\n", i+1);
+        scanf ("i%", &wzrost);
+        studenci[i].height = wzrost;
+        
+        printf ("Podaj semestr studenta nr %i\n", i+1);
+        scanf ("%i", &semestr);
+        studenci[i].semester = semestr;
+    }
+}
+
+/*************************************************************************************************
+ponizej funkcja zwalniajaca pamiec
+ *************************************************************************************************/
+
+void clearMemory(struct student** studenci)
+{
+    free(*studenci);
+    *studenci = NULL;
+}
+
+/*************************************************************************************************
+ponizej funkcja wyswietlajaca struktury studentow
+ *************************************************************************************************/
+
+void PrintStudent(const struct student* const studenci, int ilosc)
+{
+    for(int i=0; i< ilosc; i++)
+    {
+        printf("\nWiek studenta nr: %i \t to: %i\n", i+1, studenci[i].age);
+        printf("Wzrost studenta nr: %i \t to: %i\n", i+1, studenci[i].height);
+        printf("Semestr studenta nr: %i \t to: %i\n", i+1, studenci[i].semester);
+    }
+}
+
+/*************************************************************************************************
+ponizej funkcja porownujaca struktury
+ *************************************************************************************************/
+
+bool AreEqueal(struct student* s1)
+{
+    int wynik_bool;
+   
+        if ((s1[0].age == s1[1].age) && (s1[0].height == s1[1].height) && (s1[0].semester == s1[1].semester))
+        {
+            wynik_bool = 1;
+        }
+        else
+            wynik_bool = 0;
+    
+    return wynik_bool;
+}
 
 
-void PrintStudent(Student *s)
-
-
-
-
-
+//rozpoczynam funkcje glowna programu
 int main(void)
 {
     
@@ -80,6 +143,11 @@ int main(void)
     int wybor;                      // zmienna dla switch, wybor podprogramu
     int wyjscie=0;                  // zmienna dla wyjscia z programu
     char kont;                      // zmienna dla wyjscia z programu
+    int porownanie_struktor;        // zmienna dla porownania struktor
+    int i;                          // zmienna dla liczby iteracji petli
+    int wiek;                       // zmienna dla wprowadzenia wieku
+    int wzrost;                     // zmienna dla wprowadzenia wzrostu
+    int semestr;                    // zmienna dla semestru
     
     puts ("\nWlasnie uruchomiles program nr 1 (zadania styczniowe)");
     puts ("Glowna funkcje main\n");
@@ -97,16 +165,69 @@ int main(void)
             case 1:
                 // rozpoczynam program nr 1.1 (styczen)
                 printf ("Uruchomiles wlasnie kolejny program, zadanie nr 1.%i\n", wybor);
+                puts ("Program utworzy strukture dwoch studentow, a nastepnie porowna obydwie struktury");
+                puts ("Po czym zwroci informacje czy sa indentyczne");
+                puts ("\n\n\nTeraz program rozpocznie wprowadzanie danych do struktury:");
                 
-                Student * student = (Student*) malloc (sizeof(Student)); // zaalokuj pamięć na X bajtów, gdzie X to wyliczony przez kompilator rozmiar struktury Student
-                student->Age = 25;
-                student->Semester = 6;
-                free(student); // zwolnij pamięć
+                //!!!!!!===KOMENTARZ===!!!!!!!
+                
+                //ponizej rozwiazanie wprowadzanie tablicy stroktor inaczej jak Pan zadal w zadania. Poki co
+                //nie rozwiazalem wedlug podanego przez Pana schematy. Popracuje jeszcze nad rozwiazaniem
+                //wedlug Panskiego schematu.
+                
+                struct student students[2]; //tworze tablice struktur
+                for (i=0 ; i<2 ; i++)
+                {
+                    printf ("Podaj wiek studenta nr %i\n", i+1);
+                    scanf ("%i", &wiek);
+                    students[i].age = wiek;
+                    
+                    printf ("Podaj wzrost studenta nr %i\n", i+1);
+                    scanf ("i%", &wzrost);
+                    students[i].height = wzrost;
+                    
+                    printf ("Podaj semestr studenta nr %i\n", i+1);
+                    scanf ("%i", &semestr);
+                    students[i].semester = semestr;
+                }
+                puts ("Teraz program wyswietli struktury poszczegolnych studentow");
+                PrintStudent(students, 2);
+                puts ("\nSuper ! Powyzej wyswietlono struktury studentow");
+                puts ("\nTera program powrowna obie struktury");
+                puts ("Sprawdzi czy studenci sa wtym samym wieku, czy maja taki sam wzrost oraz czy sa na tym samym semestrze");
+                
+                porownanie_struktor = AreEqueal(students);
+                
+                porownanie_struktor == 1 ? FALSE : TRUE;
+                    if ( porownanie_struktor == TRUE )
+                        printf("\nSuper ! Wartosci podanym strukturach sa takie same\n");
+                    else
+                        printf("\nPrzykro mi, ale struktury sie roznia\n");
+                
                 
                 break;
             case 2:
                 // rozpoczynam program nr 1.2 (styczen)
                 printf ("Uruchomiles wlasnie kolejny program, zadanie nr 1.%i\n", wybor);
+                puts ("Program utworzy strukture trzech studentow, wypisze po czym zwolni pamiec");
+                puts ("\n\n\nTeraz program rozpocznie wprowadzanie danych do struktury:");
+                
+                //!!!!!!===KOMENTARZ===!!!!!!!
+                
+                //przy tym zadaniu wzorowalem sie na przykladach ktore
+                //na wykladach przedstawial Pan dr Fedorow. Po przeanalizowaniu rozwiazalem
+                //zadanie w nastepujacy sposob.
+                
+                struct student* studenci;
+                int iloscStudentow_zad_1_2 = 3;
+                createStudenci(&studenci, iloscStudentow_zad_1_2);
+                create(studenci, iloscStudentow_zad_1_2);
+                PrintStudent(studenci, iloscStudentow_zad_1_2);
+                clearMemory(&studenci);
+                if (studenci == NULL)
+                {
+                    puts("Gratulacje ! Wlasnie dokonales prawidlowego zwolnienia pamieci.");
+                }
                 break;
            
             default:
@@ -142,3 +263,4 @@ int main(void)
         printf ("\nMoze nastepnym razem. Powodzenia !!!\n");
     }
 }
+
