@@ -96,6 +96,11 @@ struct Node
     Node * Next;
 };
 
+
+/*************************************************************************************************
+ Ponizej tworze pierwszy element listy a adresem
+ *************************************************************************************************/
+
 Node * Create (int value)
 {
     
@@ -111,24 +116,30 @@ Node * Create (int value)
     return 0;
 }
 
+/*************************************************************************************************
+ Ponizej znajduje adres ostatniego elementu listy
+ *************************************************************************************************/
 
-Node * GetTail(Node * root);
+Node * GetTail(Node * root)
 
 {
     Node * zmiennaTymczasowa;
     while (root != NULL)
     {
         zmiennaTymczasowa = root;
-        zmiennaTymczasowa = zmiennaTymczasowa->Next)
+        zmiennaTymczasowa = zmiennaTymczasowa->Next;
     }
     return zmiennaTymczasowa;
 }
     
-    
-void Add(Node* root, int value);
+/*************************************************************************************************
+ ponizej wstawiam element za ostatni element listy. Najpierw znajduje adres ostatniego elementu.
+ *************************************************************************************************/
+
+void Add(Node* root, int value)
 
 {
-    *elementKoncowy = GetTail(root);
+    Node *elementKoncowy = GetTail(root);
     
     Node *zmiennaPomocnicza;
     zmiennaPomocnicza = (Node*)malloc(sizeof(Node));
@@ -136,17 +147,17 @@ void Add(Node* root, int value);
     zmiennaPomocnicza->Value = value;
     zmiennaPomocnicza->Next = elementKoncowy->Next;
     elementKoncowy->Next = zmiennaPomocnicza;
-    return 0;
 }
-    
-void PrintList(Node * root);
 
+/*************************************************************************************************
+ Ponizej wypisuje liste i wartosi poszczegolnych wezlow "NODE"
+ *************************************************************************************************/
+
+void PrintList(Node * root)
 {
-    
-    
-    *adresOstatniegoElementu = GetTail(root);
-    
-    for(zmiennaTymczasowa = root ; zmiennaTtymczasowa == adresOstatniogoElementu ; zmiennaTymczasowa = zmiennaTymczasowa->Next)
+    Node *adresOstatniegoElementu = GetTail(root);
+    Node *zmiennaTymczasowa;
+    for(zmiennaTymczasowa = root ; zmiennaTymczasowa == adresOstatniegoElementu ; zmiennaTymczasowa = zmiennaTymczasowa->Next)
     {
         printf ("Twoim elementem listy o adresie:", zmiennaTymczasowa);
         printf ("Jest element o wartosci: %i",
@@ -154,41 +165,43 @@ void PrintList(Node * root);
     }
 }
 
-void RemoveNode(Node * root, int value);
+/*************************************************************************************************
+ Usuwam wezly ktore maja okreslona wartosc "Value"
+ *************************************************************************************************/
+
+void RemoveNode(Node * root, int value)
 
 {
-    Node *zmiennaPomocnicza;
-    
-    zmiennaTymczasowa = root;
-    
-    
+    Node * zmiennaPomocnicza;
+    Node * zmiennaTymczasowa = root;
     while (zmiennaTymczasowa != NULL)
         
-        zmiennaTymczasowa = zmiennaTymczasowa->Next)
+        zmiennaTymczasowa = zmiennaTymczasowa->Next;
         
         if (zmiennaPomocnicza->Value = value)
         {
             zmiennaPomocnicza = root;
             root = zmiennaPomocnicza->Next;
-            delete zmiennaPomocnicza;
+            free (zmiennaPomocnicza);
         }
         else
-        
-            zmiennaTymczasowa = zmiennaTymczasowa->Next)
-
+            zmiennaTymczasowa = zmiennaTymczasowa->Next;
 }
 
-void FreeList(Node * root);
+/*************************************************************************************************
+ Ponizej czyszcze liste
+ *************************************************************************************************/
 
-    {
-        Node *zmiennaPomocnicza;
-        while (root != NULL)
-            {
-                zmiennaPomocnicza = root;
-                root = zmiennaPomocnicza->Next;
-                free(zmiennaPomocnicza);
-            }
-    }
+void FreeList(Node * root)
+{
+    Node *zmiennaPomocnicza;
+    while (root != NULL)
+        {
+            zmiennaPomocnicza = root;
+            root = zmiennaPomocnicza->Next;
+            free (zmiennaPomocnicza);
+        }
+}
     
     
 
