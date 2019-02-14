@@ -103,15 +103,17 @@ struct Node
 
 Node * Create (int value)
 {
-    
-    Node * zmiennaPoczatkowa=NULL;
+    //zmienna wskaznikowa na pierwszy element listy
+    Node * root=NULL;
     
     Node * zmiennaTymczasowa;
+    //blokuje pamiec na zmienna tymczasowa o rozmiarze struktury Node
     zmiennaTymczasowa = (Node*)malloc(sizeof(Node));
-    
+    //przypisuje do struktury w wezle Node wartosc value
     zmiennaTymczasowa->Value = value;
-    zmiennaTymczasowa->Next = zmiennaPoczatkowa;
-    zmiennaPoczatkowa = zmiennaTymczasowa;
+    //przesuniecie wartosci null z roota do nastepnego wezla
+    zmiennaTymczasowa->Next = root;
+    root = zmiennaTymczasowa;
     
     return 0;
 }
@@ -123,10 +125,13 @@ Node * Create (int value)
 Node * GetTail(Node * root)
 
 {
+    
     Node * zmiennaTymczasowa;
-    while (root != NULL)
+   
+    zmiennaTymczasowa = root;
+    //zlicza tak dlugo az nie natrafi w ostatnim wezle nie natrafii na null
+    while (root->zmiennaTymczasowa != NULL)
     {
-        zmiennaTymczasowa = root;
         zmiennaTymczasowa = zmiennaTymczasowa->Next;
     }
     return zmiennaTymczasowa;
